@@ -11,7 +11,7 @@ namespace Lab1
         {
             try
             {
-                string connectionString = @"Data Source = .\sqlexpress; Initial Catalog = QLSV; User= sa; Password=1";
+                string connectionString = @"Data Source = .\sqlexpress; Initial Catalog = QLSV; User= sa; Password=";
                 SqlConnection connection = new SqlConnection(connectionString);
                 connection.Open();
                 if (connection.State != System.Data.ConnectionState.Open)
