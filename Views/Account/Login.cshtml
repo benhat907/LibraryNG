@@ -1,0 +1,29 @@
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="bk-login">
+    <div class="mb-3 tt-login">
+        <h1>Xin chào bạn</h1>
+        <span>Đăng nhập vào tài khoản của bạn</span>
+        <hr />
+    </div>
+    <div class="mb-3 tt-form">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control ti" id="email_login" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3 tt-form">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control ti" id="password_login">
+    </div>
+    <div class="row check">
+        <div class="mb-3 form-check fc">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        <div class="fc-dk">
+            <a asp-area="" asp-controller="Account" asp-action="Register">Don't have account</a>
+        </div>
+    </div>
+    <button class="btn btn-primary sb" id="btnLogin">Submit</button>
+</div>

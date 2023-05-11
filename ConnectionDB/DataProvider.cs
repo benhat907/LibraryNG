@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using Microsoft.Data.SqlClient;
 
-namespace Lab1
+namespace LibraryNG
 {
     public static class DataProvider
     {
@@ -11,7 +11,8 @@ namespace Lab1
         {
             try
             {
-                string connectionString = @"Data Source = .\sqlexpress; Initial Catalog = QLSV; User= sa; Password=";
+                // string connectionString ="Data Source=DESKTOP-K2E2NRP"+""+"SQLEXPRESS;Initial Catalog=QLLNG;User ID=sa;Password=votinh111003";
+                string connectionString ="Data Source= 192.168.1.11,1433; Database= QLLNG;User ID=sa;Password=qw`12";
                 SqlConnection connection = new SqlConnection(connectionString);
                 connection.Open();
                 if (connection.State != System.Data.ConnectionState.Open)
@@ -36,7 +37,7 @@ namespace Lab1
         {
             try
             {
-                string connectionString = @"Data Source = .\sqlexpress; Initial Catalog = QLSV; User= sa; Password=1";
+                string connectionString = @"Data Source= 192.168.1.11,1433; Database= QLLNG;User ID=sa;Password=qw`12";
                 SqlConnection connection = new SqlConnection(connectionString);
                 connection.Open();
                 if (connection.State != System.Data.ConnectionState.Open)

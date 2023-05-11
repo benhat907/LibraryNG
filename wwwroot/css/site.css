@@ -2,7 +2,7 @@ html {
   font-size: 14px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   html {
     font-size: 16px;
   }
@@ -19,4 +19,23 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+/* Dashboard */
+.main-lng {
+  min-width: 100%;
+  text-align: center;
+  padding: inherit;
+  contain: content;
+}
+
+.item-lng {
+  margin: 15px;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  justify-content: space-evenly;
+}
+
+div.txt-lng input, textarea {
+  width: 100%;
 }
