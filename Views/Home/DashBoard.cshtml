@@ -1,5 +1,7 @@
+@model LibraryNG.Models.InfoLibrary
 @{
     ViewData["Title"] = "DashBoard";
+    var listLibrary = ViewData["Library"] as List<InfoLibrary>;
 }
 <!-- Modal -->
 <div class="main_controller">
@@ -9,68 +11,84 @@
     <div class="controller_main">
         <input type="text" name="Search" id="txt_search" placeholder="Gõ Từ Khóa Cần Tìm">
         <button type="button" id="btn_search">Search</button>
-        <button type="button" id="btn_save">Save</button>
+        <button type="button" id="btn_add">Add</button>
     </div>
 </div>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  Launch demo modal
-</button>
-
+<!-- Modal Delete -->
+<div class="modal fade" id="modalDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Thông báo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có muốn xóa hàng này không?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    onclick="fclosedelete()">Close</button>
+                <button type="button" class="btn btn-primary" id="btn_delete_ok">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Modal -->
-@* <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-            
-        </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> *@
-<div class="main-lng">
-    <div>
-        <h2><b>From Nhập Thư Viện Lỗi NG</b></h2>
-    </div>
-    <div class="item-lng">        
-        <div class="lb-lng">
-            <label for="recipient-name">Mã Lỗi</label>
-        </div>
-        <div class="txt-lng">
-            <input type="text" name="ML" id="maLoi">
-        </div>
-    </div>
-    <div class="item-lng">        
-        <div class="lb-lng">
-            <label for="recipient-name">Tên Lỗi</label>
-        </div>
-        <div class="txt-lng">
-            <input type="text" name="TL" id="tenLoi">
-        </div>
-    </div>
-    <div class="item-lng">        
-        <div class="lb-lng">
-            <label for="recipient-name">Phân Loại NG</label>
-        </div>
-        <div class="txt-lng">
-            <textarea type="text" name="PLNG" id="plng"> </textarea>
-        </div>
-    </div>
-    <div class="item-lng">        
-        <div class="lb-lng">
-            <label for="recipient-name">Chú thích</label>
-        </div>
-        <div class="txt-lng">
-            <input type="text" name="CL" id="chuThich">
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">From Nhập Thư Viện Lỗi NG</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="main-lng">
+                    <div class="item-lng">        
+                        <div class="lb-lng">
+                            <label  asp-for="@Model.MaLoi" for="recipient-name"></label>
+                        </div>
+                        <div class="txt-lng">
+                            @* <input type="text" name="CL" id="maLoi"> *@
+                            @Html.EditorFor(model => model.MaLoi, new{ htmlAttributes = new {@id = "maLoi"}})
+                            @Html.ValidationMessageFor(model => model.MaLoi, "", new { @class = "text-danger" })                            
+                        </div>
+                    </div>
+                    <div class="item-lng">        
+                        <div class="lb-lng">
+                            <label asp-for="@Model.TenLoi" for="recipient-name"></label>
+                        </div>
+                        <div class="txt-lng">
+                            @* <input type="text" name="CL" id="tenLoi"> *@
+                            @Html.EditorFor(Model => Model.TenLoi, new { htmlAttributes = new {@id = "tenLoi"}})
+                            @Html.ValidationMessageFor(model => model.TenLoi, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="item-lng">        
+                        <div class="lb-lng">
+                            <label asp-for="@Model.PhanLoaiNG" for="recipient-name"></label>
+                        </div>
+                        <div class="txt-lng">
+                            @* <textarea type="text" name="CL" id="plng"></textarea> *@
+                            @Html.TextAreaFor(Model => Model.PhanLoaiNG, new { @id = "plng"})
+                        </div>
+                    </div>
+                    <div class="item-lng">        
+                        <div class="lb-lng">
+                            <label asp-for="@Model.ChuThich" for="recipient-name"></label>
+                        </div>
+                        <div class="txt-lng">
+                            @* <input type="text" name="CL" id="chuThich"> *@
+                            @Html.EditorFor(model => model.ChuThich, new { htmlAttributes = new {@id ="chuThich" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btn_close" data-bs-dismiss="modal"
+                    onclick="fclose()">Close</button>
+                <button type="button" class="btn btn-primary" id="btn_save">Lưu</button>
+            </div>
         </div>
     </div>
 </div>
@@ -80,11 +98,28 @@
         <div class="cl_items">Tên lỗi</div>
         <div class="cl_items">Phân loại NG</div>
         <div class="cl_items">Chú thích</div>
+        <div class="cl_items"></div>
     </div>
-    <div class="content_main">
-        <div class="cm_items"></div>
-        <div class="cm_items"></div>
-        <div class="cm_items"></div>
-        <div class="cm_items"></div>
-    </div>
+    @foreach (var item in listLibrary)
+    {
+        <div class="content_main">
+            <div class="cm_items">@item.MaLoi</div>
+            <div class="cm_items">@item.TenLoi</div>
+            <div class="cm_items">@item.PhanLoaiNG</div>
+            <div class="cm_items">@item.ChuThich</div>
+            <div class="cm_items">
+                <button type="button" 
+                        class="btn btn-primary" 
+                        id="btn_edit" 
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"  
+                        onclick="ledit('@item.MaLoi', '@item.TenLoi', '@item.PhanLoaiNG', '@item.ChuThich')">
+                            Edit
+                </button>
+                <button type="button" class="btn btn-primary" id="btn_delete" onclick="ldel('@item.MaLoi')">
+                            Delete
+                </button>
+            </div>
+        </div>
+    }
 </div>

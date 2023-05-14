@@ -35,7 +35,7 @@ namespace LibraryNG.Controllers
             string query = "SELECT EMAIL, MATKHAU FROM Users WHERE EMAIL = @Email AND MATKHAU = @Password";
             DataTable data = DataProvider.ExcuteQuery(query, new Dictionary<string, object>{
                 {"@Email", log.Email},
-                {"@Password", log.Password}
+                {"@Password", log.MatKhau}
                         });
             if (data.Rows.Count <= 0)
                 return Json(new { resault = "Đăng nhập thất bại" });
@@ -55,20 +55,23 @@ namespace LibraryNG.Controllers
             return View();
         }
         [HttpPost]
-        // public JsonResult RegisterMethod(RegisterModel reg)
-        // {
-        //     string query = string.Format(@"Insert into [User](FirstName, LastName, Email, PassWord) values(@FirstName,@LastName,@Email,@PassWord)");
-        //     int rows = DataProvider.ExecuteNonQuery(query, new Dictionary<string, object>{
-        //         {"@FirstName", reg.FirstName},
-        //         {"@LastName", reg.LastName},
-        //         {"@Email",reg.Email},
-        //         {"@PassWord", reg.PassWord}
-        //     });
-        //     if (rows <= 0)
-        //         return Json(new { resault = "Đăng ký không thành công" });
+        public JsonResult RegisterMethod(LoginModel reg)
+        {
+            string query = string.Format(@"insert into Users(MaNV, HoTenNV, BoPhan, Email, MatKhau, RoleID, Avatar) values(@MaNV, @HoTenNV, @BoPhan, @Email, @MatKhau, @RoleID, @Avatar)");
+            int rows = DataProvider.ExecuteNonQuery(query, new Dictionary<string, object>{
+                {"@MaNV", reg.MaNV},
+                {"@HoTenNV", reg.HoTenNV},
+                {"@BoPhan", reg.BoPhan},
+                {"@Email", reg.Email},
+                {"@MatKhau", reg.MatKhau},
+                {"@RoleID", reg.RoleID},
+                {"@Avatar", reg.Avatar}
+            });
+            if (rows <= 0)
+                return Json(new { resault = "Đăng ký không thành công" });
 
-        //     return Json(new { resault = "ok" });
-        // }
+            return Json(new { resault = "ok" });
+        }
 
         public async Task<JsonResult> Logout(){
             HttpContext.SignOutAsync();

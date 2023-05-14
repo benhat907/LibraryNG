@@ -39,3 +39,19 @@ body {
 div.txt-lng input, textarea {
   width: 100%;
 }
+
+.show_content {
+  margin-top: 15px;
+}
+
+.content_label {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  text-align: center;
+}
+
+.content_main {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  text-align: center;
+}
